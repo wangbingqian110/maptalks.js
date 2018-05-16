@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Map - Display a map</title>
+<style type="text/css">
+  html, body {
+    margin: 0px;
+    height: 100%;
+    width: 100%
+  }
+
+  .container {
+    width: 100%;
+    height: 100%
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maptalks@0.39.4/dist/maptalks.css">
+<script type="text/javascript" src="dist/maptalks.js"></script>
+<body>
+
+<div id="map" class="container"></div>
+
+<script>
+
+
+  var map = new maptalks.Map('map', {
+    maxZoom: 20,
+    minZoom: 3,
+    center: [106, 31.498568],
+    zoom: 6,
+    centerCross: true
+  })
+  var layer = new maptalks.TileLayer('base', {
+    urlTemplate: 'https://{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7',
+    subdomains: ['wprd01', 'wprd02', 'wprd03', 'wprd04'],
+    attribution: '&copy; <a href="https://www.amap.com/">高德地图</a>',
+  }).addTo(map)
+  const extent = new maptalks.Extent([-180, -90, 180, 90]);
+  let preCenter = map.getCenter();
+  map.on('moving moveend', e=> {
+    if (!map.getExtent().within(extent)) {
+      map.setCenter(preCenter);
+      return;
+    }
+    preCenter = map.getCenter();
+  });
+</script>
+</body>
+</html>
