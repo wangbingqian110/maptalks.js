@@ -1,4 +1,4 @@
-import { isNil, isNumber } from '../core/util';
+import {isNil, isNumber} from '../core/util';
 import Coordinate from './Coordinate';
 import Size from './Size';
 
@@ -567,3 +567,4 @@ class Extent {
 }
 
 export default Extent;
+
